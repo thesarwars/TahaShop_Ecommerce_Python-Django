@@ -4,10 +4,62 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="box-element" id="form-wrapper">
+                <form id="form">
+                    <div id="user-info">
+                        <div class="form-field">
+                            <input required class="form-control" type="text" name="Name" placeholder="Name..">
+                        </div>
+                        <div class="form-field">
+                            <input required class="form-control" type="email" name="Email" placeholder="Email..">
+                        </div>
 
+                    </div>
+                    <div id="shipping-info">
+                        <hr>
+                        <p>Shipping Information:</p>
+                        <hr>
+                        <div class="form-field">
+                            <input required class="form-control" type="text" name="Address" placeholder="Address..">
+                        </div>
+                        <div class="form-field">
+                            <input required class="form-control" type="text" name="City" placeholder="City..">
+                        </div>
+                        <div class="form-field">
+                            <input required class="form-control" type="text" name="State" placeholder="State..">
+                        </div>
+                        <div class="form-field">
+                            <input required class="form-control" type="integer" name="Zip" placeholder="Zip..">
+                        </div>
+                        <div class="form-field">
+                            <input required class="form-control" type="text" name="Country" placeholder="Country..">
+                        </div>
+
+                    </div>
+                    <hr>
+
+                    <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+                </form>
+
+            </div>
+            <br>
+            <div class="box-element hidden" id="payment-info">
+                <small>Paypal Option</small>
             </div>
         </div>
         <div class="col-lg-6">
+            <div class="btn btn-outline-dark" href={% url 'cart' %}>&#x2190;Back to Cart
+            </div>
+            <hr>
+            <h3>Order Summary:</h3>
+            <hr>
+            <div class="cart-row">
+                <div style="flex: 2"><img class="row-image" src={% static "images/placeholder.png" %} alt=""></div>
+                <div style="flex: 2">Product 1</div>
+                <div style="flex: 1">$20</div>
+                <div style="flex: 1">x2</div>
+            </div>
+            <h5>Item: 2</h5>
+            <h5>Total: $2</h5>
         </div>
     </div>
 {% endblock %}
