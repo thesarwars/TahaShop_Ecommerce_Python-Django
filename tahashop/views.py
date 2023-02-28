@@ -13,8 +13,8 @@ def store(request):
         cartItem = order.get_cart_items
     else:
         items = []
-        order = {'order.get_cart_items': 0, 'order.get_cart_total': 0}
-        cartItem = ['order.get_cart_items']
+        order = {'get_cart_items': 0, 'get_cart_total': 0, 'shipping': False}
+        cartItem = order['get_cart_items']
 
     products = Product.objects.all()
     context = {'products': products, 'cartItem': cartItem}
@@ -29,8 +29,8 @@ def cart(request):
         cartItem = order.get_cart_items
     else:
         items = []
-        order = {'order.get_cart_items': 0, 'order.get_cart_total': 0}
-        cartItem = ['order.get_cart_items']
+        order = {'get_cart_items': 0, 'get_cart_total': 0, 'shipping': False}
+        cartItem = order['get_cart_items']
     context = {'items': items, 'order': order, 'cartItem': cartItem}
     return render(request, "store/cart.html", context)
 
@@ -39,10 +39,12 @@ def checkout(request):
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
+        cartItem = order.get_cart_items
     else:
         items = []
-        order = {'order.get_cart_items': 0, 'order.get_cart_total': 0}
-    context = {'items': items, 'order': order}
+        order = {'get_cart_items': 0, 'get_cart_total': 0, 'shipping': False}
+        cartItem = order['get_cart_items']
+    context = {'items': items, 'order': order, 'cartItem': cartItem}
     return render(request, "store/checkout.html", context)
 
 def updateItem(request):
