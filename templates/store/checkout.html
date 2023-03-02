@@ -27,7 +27,7 @@
                         <input required class="form-control" type="text" name="state" placeholder="State..">
                     </div>
                     <div class="form-field">
-                        <input required class="form-control" type="integer" name="zip" placeholder="Zip..">
+                        <input required class="form-control" type="integer" name="zipcode" placeholder="Zip..">
                     </div>
                     <div class="form-field">
                         <input required class="form-control" type="text" name="country" placeholder="Country..">
@@ -67,7 +67,7 @@
 <script type="text/javascript">
     var shipping = '{{order.shipping}}'
     var user = '{{request.user}}'
-    var total = '{{order.get_cart_total|floatformat:2}}'
+    var total = '{{order.get_cart_total}}'
 
     if (shipping == 'False'){
         document.getElementById('shipping-info').innerHTML = ''
@@ -111,13 +111,13 @@
         'address': null,
         'city': null,
         'state': null,
-        'zip': null,
+        'zipcode': null,
     }
     if (shipping != 'False'){
         shippingData.address = form.address.value
         shippingData.city = form.city.value
         shippingData.state = form.state.value
-        shippingData.zip = form.zip.value
+        shippingData.zipcode = form.zipcode.value
 
     }
 
@@ -134,7 +134,7 @@
             'X-CSRFToken': csrftoken,
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({'user': userFormData, 'shipping': shippingData})
+        body: JSON.stringify({'form': userFormData, 'shipping': shippingData})
     })
     .then((response) => response.json())
     .then((data) => {
