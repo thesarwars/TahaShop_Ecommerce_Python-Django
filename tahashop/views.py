@@ -3,19 +3,13 @@ from django.http import JsonResponse
 from .models import *
 import json
 import datetime
+from .utils import cookieCart, cartData
 
 
 def store(request):
     
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
-        cartItem = order.get_cart_items
-    else:
-        items = []
-        order = {'get_cart_items': 0, 'get_cart_total': 0, 'shipping': False}
-        cartItem = order['get_cart_items']
+    cData = cartData(request)
+    cartItem = cData['cartItem']
 
     products = Product.objects.all()
     context = {'products': products, 'cartItem': cartItem}
@@ -23,28 +17,21 @@ def store(request):
 
 def cart(request):
     
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
-        cartItem = order.get_cart_items
-    else:
-        items = []
-        order = {'get_cart_items': 0, 'get_cart_total': 0, 'shipping': False}
-        cartItem = order['get_cart_items']
+    cData = cartData(request)
+    cartItem = cData['cartItem']
+    order = cData['order']
+    items = cData['items']
+            
     context = {'items': items, 'order': order, 'cartItem': cartItem}
     return render(request, "store/cart.html", context)
 
 def checkout(request):
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
-        cartItem = order.get_cart_items
-    else:
-        items = []
-        order = {'get_cart_items': 0, 'get_cart_total': 0, 'shipping': False}
-        cartItem = order['get_cart_items']
+    
+    cData = cartData(request)
+    cartItem = cData['cartItem']
+    order = cData['order']
+    items = cData['items']
+        
     context = {'items': items, 'order': order, 'cartItem': cartItem}
     return render(request, "store/checkout.html", context)
 
