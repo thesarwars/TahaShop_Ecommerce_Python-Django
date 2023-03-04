@@ -7,10 +7,10 @@
             <form id="form">
                 <div id="user-info">
                     <div class="form-field">
-                        <input required class="form-control" type="text" name="Name" placeholder="Name..">
+                        <input required class="form-control" type="text" name="name" placeholder="Name..">
                     </div>
                     <div class="form-field">
-                        <input required class="form-control" type="email" name="Email" placeholder="Email..">
+                        <input required class="form-control" type="email" name="email" placeholder="Email..">
                     </div>
                 </div>
                 <div id="shipping-info">
@@ -140,6 +140,10 @@
     .then((data) => {
         console.log('Success: ', data)
         alert('Transaction Completed!')
+        
+        cart = {}
+        document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+        
         window.location.href = "{% url 'store' %}"
     })
     }
