@@ -66,7 +66,7 @@
     </div>
 </div>
 
-<script src="https://www.paypal.com/sdk/js?client-id=ARZ82bBLGHllpVeqsYxBwQTH_9byYiu-rl0-zNN33XVEHFiLr7SYOYR1Xko47TdgbEoajD4jrQT3gHS9&currency=USD"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=ARZ82bBLGHllpVeqsYxBwQTH_9byYiu-rl0-zNN33XVEHFiLr7SYOYR1Xko47TdgbEoajD4jrQT3gHS9&currency=USD&disable-funding=paylater"></script>
 
 <script>
     var total = '{{order.get_cart_total}}'
@@ -75,7 +75,7 @@
         // optional styling for buttons
         // https://developer.paypal.com/docs/checkout/standard/customize/buttons-style-guide/
         style: {
-          color: "gold",
+          color: "blue",
           shape: "rect",
           layout: "vertical"
         },
@@ -102,6 +102,7 @@
             const captureOrderHandler = (details) => {
                 const payerName = details.payer.name.given_name;
                 console.log('Transaction completed');
+                submitFormData()
             };
 
             return actions.order.capture().then(captureOrderHandler);
